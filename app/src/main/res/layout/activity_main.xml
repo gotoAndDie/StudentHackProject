@@ -52,8 +52,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get visible"
-        android:onClick="visible"
+        android:text="Start listening for data"
+        android:onClick="listen"
         android:id="@+id/button2"
         android:layout_alignBottom="@+id/button"
         android:layout_centerHorizontal="true" />
@@ -85,7 +85,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignLeft="@+id/button"
         android:layout_alignStart="@+id/button"
-        android:layout_below="@+id/textView2" />
+        android:layout_below="@+id/outputView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -97,5 +97,14 @@
         android:layout_below="@+id/button4"
         android:layout_alignLeft="@+id/listView"
         android:layout_alignStart="@+id/listView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/outputView"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:textSize="15dp"/>
 
 </RelativeLayout>
