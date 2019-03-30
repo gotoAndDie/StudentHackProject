@@ -5,9 +5,11 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,12 +21,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
     //    private final String DEVICE_NAME="MyBTBee";
-    private final String DEVICE_ADDRESS="20:13:10:15:33:66";
+    private String DEVICE_ADDRESS="20:13:10:15:33:66";
     private final UUID PORT_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");//Serial Port Service ID
     private BluetoothDevice device;
     private BluetoothSocket socket;
@@ -41,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private BluetoothAdapter BA;
-    private Set<BluetoothDevice>pairedDevices;
+    private Set<BluetoothDevice> pairedDevices;
+    private List<BluetoothDevice> pairedDeviceList = new ArrayList<>();
     ListView lv;
 
     @Override
@@ -219,13 +223,27 @@ public class MainActivity extends AppCompatActivity {
     public void list(View v){
         pairedDevices = BA.getBondedDevices();
 
-        ArrayList list = new ArrayList();
+        ArrayList<String> list = new ArrayList();
 
-        for(BluetoothDevice bt : pairedDevices) list.add(bt.getName() + ": " + bt.getAddress());
+        for(BluetoothDevice bt : pairedDevices)
+        {
+            list.add(bt.getName() + ": " + bt.getAddress());
+            pairedDeviceList.add(bt);
+        }
         Toast.makeText(getApplicationContext(), "Showing Paired Devices",Toast.LENGTH_SHORT).show();
 
         final ArrayAdapter adapter = new  ArrayAdapter(this,android.R.layout.simple_list_item_1, list);
 
         lv.setAdapter(adapter);
+
+        lv.setOnItemClickListener(new ListView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3)
+            {
+                DEVICE_ADDRESS = pairedDeviceList.get(position).getAddress();
+                Toast.makeText(getApplicationContext(), "Connection target set to " + pairedDeviceList.get(position).getAddress(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
