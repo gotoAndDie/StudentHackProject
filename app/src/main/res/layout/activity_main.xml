@@ -66,4 +66,21 @@
         android:layout_toRightOf="@+id/buttonStop"
         android:layout_toEndOf="@+id/buttonStop"
         android:onClick="onClickClear"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show Paired"
+        android:id="@+id/buttonGetpair"
+        android:layout_below="@+id/buttonStart"
+        android:onClick="list"/>
+
+
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/buttonGetpair" />
 </RelativeLayout>

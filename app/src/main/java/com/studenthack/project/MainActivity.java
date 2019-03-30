@@ -38,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
     byte buffer[];
     int bufferPosition;
     boolean stopThread;
+
+
+    private BluetoothAdapter BA;
+    private Set<BluetoothDevice>pairedDevices;
+    ListView lv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.textView);
         setUiEnabled(false);
 
+        BA = BluetoothAdapter.getDefaultAdapter();
+        lv = (ListView)findViewById(R.id.listView);
     }
 
     public void setUiEnabled(boolean bool)
@@ -204,5 +212,20 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickClear(View view) {
         textView.setText("");
+    }
+
+
+
+    public void list(View v){
+        pairedDevices = BA.getBondedDevices();
+
+        ArrayList list = new ArrayList();
+
+        for(BluetoothDevice bt : pairedDevices) list.add(bt.getName() + ": " + bt.getAddress());
+        Toast.makeText(getApplicationContext(), "Showing Paired Devices",Toast.LENGTH_SHORT).show();
+
+        final ArrayAdapter adapter = new  ArrayAdapter(this,android.R.layout.simple_list_item_1, list);
+
+        lv.setAdapter(adapter);
     }
 }
