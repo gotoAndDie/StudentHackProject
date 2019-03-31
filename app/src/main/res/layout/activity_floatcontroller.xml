@@ -1,0 +1,41 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ControllerActivity"
+    android:label="Control View">
+
+    <TextView
+        android:id="@+id/infoView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "test"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/output"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Output from device:\n"
+        app:layout_constraintTop_toBottomOf="@+id/infoView"/>
+
+    <View
+        android:layout_margin="5dp"
+        android:id="@+id/divider"
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:background="#c0c0c0"
+        app:layout_constraintBottom_toTopOf="@+id/drawing"/>
+
+
+    <com.studenthack.project.FloatingTouchEventView
+        android:id="@+id/drawing"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/infoView"
+        app:layout_constraintDimensionRatio="H,1:1"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

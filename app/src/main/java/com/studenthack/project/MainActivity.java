@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private BluetoothSocket socket;
     private OutputStream outputStream;
     private InputStream inputStream;
-    Button startButton, sendButton,clearButton,stopButton;
+    Button startButton, sendButton,clearButton,stopButton, actionaButton, actionbButton;
     TextView textView;
     EditText editText;
     boolean deviceConnected=false;
@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         sendButton = (Button) findViewById(R.id.buttonSend);
         clearButton = (Button) findViewById(R.id.buttonClear);
         stopButton = (Button) findViewById(R.id.buttonStop);
+        actionaButton = (Button) findViewById(R.id.buttonActionA);
+        actionbButton = (Button) findViewById(R.id.buttonActionB);
         editText = (EditText) findViewById(R.id.editText);
         textView = (TextView) findViewById(R.id.textView);
         setUiEnabled(false);
@@ -175,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                             handler.post(new Runnable() {
                                 public void run()
                                 {
-                                    textView.append(string);
+                                    textView.append("Device: " + string);
                                 }
                             });
 
@@ -244,6 +246,18 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Connection target set to " + pairedDeviceList.get(position).getAddress(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
+    public void action_a(View view)
+    {
+        Intent i = new Intent(this, FloatControllerActivity.class);
+        i.putExtra("target_mac", DEVICE_ADDRESS);
+        startActivity(i);
+    }
+
+    public void action_b(View view)
+    {
+        Intent i = new Intent(this, ControllerActivity.class);
+        startActivity(i);
     }
 }
